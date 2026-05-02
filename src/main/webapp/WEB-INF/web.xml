@@ -5,6 +5,8 @@
         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <display-name>Interactive web quest</display-name>
+    
     <!-- Указываем, какой файл открывать первым по умолчанию -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
