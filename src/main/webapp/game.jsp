@@ -17,10 +17,24 @@
 
 </p>
 
+<form action="game" method="post">
+    <p> Ваш вариант: ${step.text} </p>
+
+    <input type="radio" id="choice1" name="step" value=${step.nextStep1id}>
+    <label for="choice1">${step.option1}</label><br>
+
+    <input type="radio" id="choice1" name="step" value=${step.nextStep2id}>
+    <label for="choice2">${step.option2}</label><br><br>
+
+    <button type ="submit">Подтвердить выбор</button>
+
+</form>
+
 <div>
     <p>ID сессии: ${pageContext.session.id}</p>
-    <p>Текущий шаг: ${step}</p>
+    <p>Текущий шаг: ${step.id}</p>
 </div>
+
 
 </body>
 </html>

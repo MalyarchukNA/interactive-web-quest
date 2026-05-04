@@ -11,6 +11,8 @@
     <title>RESULT</title>
 </head>
 <body>
-
+<p>
+    ${step.text}<br>
+</p>
 </body>
 </html>

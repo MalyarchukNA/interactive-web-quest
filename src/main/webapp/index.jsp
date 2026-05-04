@@ -15,7 +15,7 @@
 <h1>Header 1</h1>
 <p> Text </p>
 
-<form action="game" method="post">
+<form action="start" method="post">
     <label for="playerName">"Say your name:"</label><br>
     <input type = "text" id="playerName" name="playerName"
            placeholder="Введите ваше имя" required
