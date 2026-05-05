@@ -4,17 +4,30 @@ public class QuestStep {
     private String id;
     private String nextStep1id;
     private String nextStep2id;
+    private String nextStepText1id;
+    private String nextStepText2id;
     private String text;
     private String option1;
     private String option2;
+    private String prevText;    //Текст, в зависимости от выбора на предыдущем слайде
 
-    public QuestStep(String id, String nextStep1id, String option1, String nextStep2id, String option2, String text) {
+    public String getPrevText() {
+        return prevText;
+    }
+
+    public void setPrevText(String prevText) {
+        this.prevText = prevText;
+    }
+
+    public QuestStep(String id, String nextStep1id, String option1, String nextStepText1id, String nextStep2id, String option2, String nextStepText2id, String text) {
         this.id = id;
         this.nextStep1id = nextStep1id;
         this.nextStep2id = nextStep2id;
         this.text = text;
         this.option1 = option1;
         this.option2 = option2;
+        this.nextStepText1id = nextStepText1id;
+        this.nextStepText2id = nextStepText2id;
     }
 
     //TODO: for test only, redo
@@ -80,5 +93,21 @@ public class QuestStep {
 
     public void setOption2(String option2) {
         this.option2 = option2;
+    }
+
+    public String getNextStepText1id() {
+        return nextStepText1id;
+    }
+
+    public void setNextStepText1id(String nextStepText1id) {
+        this.nextStepText1id = nextStepText1id;
+    }
+
+    public String getNextStepText2id() {
+        return nextStepText2id;
+    }
+
+    public void setNextStepText2id(String nextStepText2id) {
+        this.nextStepText2id = nextStepText2id;
     }
 }

@@ -14,5 +14,10 @@
 <p>
     ${step.text}<br>
 </p>
+
+<form action="restart" method="post">
+    <button type="submit">Начать новую игру</button>
+</form>
+
 </body>
 </html>

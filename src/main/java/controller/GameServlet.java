@@ -27,13 +27,16 @@ public class GameServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         String stepId = req.getParameter("step");
-
+        String nextStepText = req.getParameter("nextStepText");
         if (stepId == null || stepId.isBlank()) {
             stepId = "start";
         }
 
         QuestStep step = service.getStep(stepId);
 
+        if (nextStepText != null && !nextStepText.isBlank()){
+            step.setPrevText(nextStepText);
+        }
 
         req.setAttribute("step", step);
 

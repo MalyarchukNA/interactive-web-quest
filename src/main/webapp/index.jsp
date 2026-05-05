@@ -9,18 +9,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>Start quest page</title>
+
+    <style>
+        .common-text {
+            text-align: justify;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+    </style>
+
+
+    <title>Отель "Забвение"</title>
 </head>
 <body>
-<h1>Header 1</h1>
-<p> Text </p>
+<h1>Отель "Забвение"</h1>
+<c:if test="${not empty restart}">
+    <p class="common-text">«Снова этот запах... Пыль, старый бархат и ледяное чувство дежавю. Отель «Забвение» узнает вашу походку.
+
+        Книга постояльцев сама открывается на той же странице, где вы когда-то оставили след. Золоченое перо дрожит в ожидании. Вы уже были здесь раньше, не так ли? Отель помнит ваше имя, но помните ли его вы?»</p>
+</c:if>
+
+
+<c:if test="${empty restart}">
+    <p class="common-text">Вы открываете глаза. В воздухе пахнет старой бумагой и пылью, осевшей на бархатных шторах. Вы стоите в пустом холле перед массивной стойкой из темного дуба. На ней лежит раскрытая «Книга постояльцев».
+
+        Тишина здесь кажется осязаемой, почти тяжелой. Чернила на страницах еще не высохли. Последняя строка пуста. Кажется, отель ждет только вашего подтверждения, чтобы запереть за вами двери».</p>
+</c:if>
 
 <form action="start" method="post">
-    <label for="playerName">"Say your name:"</label><br>
+    <label for="playerName">"Оставьте запись в книге, чтобы получить ключ от номера."</label><br>
     <input type = "text" id="playerName" name="playerName"
-           placeholder="Введите ваше имя" required
+           placeholder="Ваше имя" required
            value="${sessionScope.playerName != null ? sessionScope.playerName : ''}"> <br><br>
-            <button type="submit">Lets's start!</button>
+            <button type="submit">Позвонить в колокольчик</button>
 </form>
 </body>
 </html>

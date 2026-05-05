@@ -9,26 +9,51 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>Game</title>
+    <style>
+        .common-text {
+            text-align: justify;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+    </style>
+
+    <title>Отель "Забвение"</title>
 </head>
 <body>
 <h1>Hello, ${sessionScope.playerName}!</h1>
-<p>
 
+<c:if test="${not empty step.prevText}" >
+    <p class="common-text">
+        ${step.prevText}<br><br>
+    </p>
+</c:if>
+
+<p class="common-text">
+    ${step.text}
 </p>
 
-<form action="game" method="post">
-    <p> Ваш вариант: ${step.text} </p>
 
-    <input type="radio" id="choice1" name="step" value=${step.nextStep1id}>
+<form action="game" method="post">
+    <p> Ваш вариант: </p>
+
+    <input type="hidden" id="nextStepText" name="nextStepText" value="">
+    <input type="radio" id="choice1" name="step" value="${step.nextStep1id}"
+            data-text = "${step.nextStepText1id}" onclick="updateText(this)" required>
     <label for="choice1">${step.option1}</label><br>
 
-    <input type="radio" id="choice1" name="step" value=${step.nextStep2id}>
+    <input type="radio" id="choice2" name="step" value="${step.nextStep2id}"
+           data-text = "${step.nextStepText2id}" onclick="updateText(this)" required>
     <label for="choice2">${step.option2}</label><br><br>
 
     <button type ="submit">Подтвердить выбор</button>
 
 </form>
+
+<script>
+    function updateText(radio) {
+        document.getElementById('nextStepText').value = radio.getAttribute('data-text');
+    }
+</script>
 
 <div>
     <p>ID сессии: ${pageContext.session.id}</p>
