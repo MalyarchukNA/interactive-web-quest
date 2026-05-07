@@ -10,6 +10,10 @@ public class QuestStep {
     private String option1;
     private String option2;
     private String prevText;    //Текст, в зависимости от выбора на предыдущем слайде
+    private Integer fragment1id;
+    private Integer fragment2id;
+    private Integer lucidity1id;
+    private Integer lucidity2id;
 
     public String getPrevText() {
         return prevText;
@@ -19,7 +23,7 @@ public class QuestStep {
         this.prevText = prevText;
     }
 
-    public QuestStep(String id, String nextStep1id, String option1, String nextStepText1id, String nextStep2id, String option2, String nextStepText2id, String text) {
+    public QuestStep(String id, String nextStep1id, String option1, Integer fragment1id, Integer lucidity1id, String nextStepText1id, String nextStep2id, String option2, Integer fragment2id, Integer lucidity2id, String nextStepText2id, String text) {
         this.id = id;
         this.nextStep1id = nextStep1id;
         this.nextStep2id = nextStep2id;
@@ -28,18 +32,13 @@ public class QuestStep {
         this.option2 = option2;
         this.nextStepText1id = nextStepText1id;
         this.nextStepText2id = nextStepText2id;
+        this.fragment1id = fragment1id;
+        this.fragment2id = fragment2id;
+        this.lucidity1id = lucidity1id;
+        this.lucidity2id = lucidity2id;
     }
 
-    //TODO: for test only, redo
-    public QuestStep(String id) {
-        this.id = id;
-        this.nextStep1id = id;
-        this.nextStep2id = id;
-        this.text = "Common text";
-
-    }
-
-    //TODO: for test only, redo
+    //For finals
     public QuestStep(String id, String text) {
         this.id = id;
         this.nextStep1id = null;
@@ -110,4 +109,38 @@ public class QuestStep {
     public void setNextStepText2id(String nextStepText2id) {
         this.nextStepText2id = nextStepText2id;
     }
+
+
+    public Integer getLucidity2id() {
+        return lucidity2id;
+    }
+
+    public void setLucidity2id(Integer lucidity2id) {
+        this.lucidity2id = lucidity2id;
+    }
+
+    public Integer getLucidity1id() {
+        return lucidity1id;
+    }
+
+    public void setLucidity1id(Integer lucidity1id) {
+        this.lucidity1id = lucidity1id;
+    }
+
+    public Integer getFragment2id() {
+        return fragment2id;
+    }
+
+    public void setFragment2id(Integer fragment2id) {
+        this.fragment2id = fragment2id;
+    }
+
+    public Integer getFragment1id() {
+        return fragment1id;
+    }
+
+    public void setFragment1id(Integer fragment1id) {
+        this.fragment1id = fragment1id;
+    }
+
 }

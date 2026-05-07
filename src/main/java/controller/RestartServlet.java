@@ -22,8 +22,9 @@ public class RestartServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         session.setAttribute("restart", "restart");
-        session.setAttribute("playerName", null);
-
+        session.removeAttribute("playerName");
+        session.removeAttribute("fragments");
+        session.removeAttribute("lucidity");
         req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 }

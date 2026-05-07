@@ -29,7 +29,7 @@
 </c:if>
 
 <p class="common-text">
-    ${step.text}
+    ${stepText}
 </p>
 
 
@@ -37,12 +37,19 @@
     <p> Ваш вариант: </p>
 
     <input type="hidden" id="nextStepText" name="nextStepText" value="">
+    <input type="hidden" id="fragmentDiff" name="fragmentDiff" value="0">
+    <input type="hidden" id="lucidityDiff" name="lucidityDiff" value="0">
+
     <input type="radio" id="choice1" name="step" value="${step.nextStep1id}"
-            data-text = "${step.nextStepText1id}" onclick="updateText(this)" required>
+            data-text = "${step.nextStepText1id}"
+            data-fragment = "${step.fragment1id}"
+            data-lucidity = "${step.lucidity1id}" onclick="updateText(this)" required>
     <label for="choice1">${step.option1}</label><br>
 
     <input type="radio" id="choice2" name="step" value="${step.nextStep2id}"
-           data-text = "${step.nextStepText2id}" onclick="updateText(this)" required>
+           data-text = "${step.nextStepText2id}"
+           data-fragment = "${step.fragment2id}"
+           data-lucidity = "${step.lucidity2id}" onclick="updateText(this)" required>
     <label for="choice2">${step.option2}</label><br><br>
 
     <button type ="submit">Подтвердить выбор</button>
@@ -52,12 +59,16 @@
 <script>
     function updateText(radio) {
         document.getElementById('nextStepText').value = radio.getAttribute('data-text');
+        document.getElementById('fragmentDiff').value = radio.getAttribute('data-fragment');
+        document.getElementById('lucidityDiff').value = radio.getAttribute('data-lucidity');
     }
 </script>
 
 <div>
     <p>ID сессии: ${pageContext.session.id}</p>
     <p>Текущий шаг: ${step.id}</p>
+    <p>Осколки памяти: ${sessionScope.fragments}</p>
+    <p>Разум: ${sessionScope.lucidity}</p>
 </div>
 
 

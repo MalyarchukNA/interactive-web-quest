@@ -23,6 +23,8 @@ public class StartServlet extends HttpServlet {
 
         String playerName = req.getParameter("playerName");
         session.setAttribute("playerName", playerName);
+        session.setAttribute("fragments", 0);
+        session.setAttribute("lucidity", 100);
 
         req.getRequestDispatcher("game").forward(req, resp);
     }

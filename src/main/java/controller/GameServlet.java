@@ -28,23 +28,72 @@ public class GameServlet extends HttpServlet {
 
         String stepId = req.getParameter("step");
         String nextStepText = req.getParameter("nextStepText");
+        Integer lucidityDiff = safeParse(req.getParameter("lucidityDiff"));
+        Integer fragmentDiff = safeParse(req.getParameter("fragmentDiff"));
+        Integer lucidity = (Integer)session.getAttribute("lucidity") + lucidityDiff;
+        Integer fragments = (Integer)session.getAttribute("fragments") + fragmentDiff;
+        String playerName = (String) session.getAttribute("playerName");
+
         if (stepId == null || stepId.isBlank()) {
             stepId = "start";
         }
 
+        //Выход на финал timelessness
+        if (stepId.equals("finalStep") && lucidity < 40){
+            QuestStep step = service.getStep("timelessness");
+            if (nextStepText != null && !nextStepText.isBlank()){
+                step.setPrevText(nextStepText);
+            }
+            String stepText = step.getText();
+            if (stepText.contains("%s") && playerName != null){
+                stepText = String.format(stepText, playerName);
+            }
+            req.setAttribute("stepText", stepText);
+            req.setAttribute("step", step);
+            session.setAttribute("lucidity", lucidity);
+            session.setAttribute("fragments", fragments);
+            req.getRequestDispatcher("/result.jsp").forward(req, resp);
+            return;
+        }
+
         QuestStep step = service.getStep(stepId);
+
+        if (stepId.equals("trueFinal")){
+            if (lucidity < 30 || fragments < 2){
+                step = service.getStep("defeat");
+            }
+        }
+        //Добавляем имя игрока в текст
+        String stepText = step.getText();
+
+        if (stepText.contains("%s") && playerName != null){
+            stepText = String.format(stepText, playerName);
+        }
 
         if (nextStepText != null && !nextStepText.isBlank()){
             step.setPrevText(nextStepText);
         }
 
+        req.setAttribute("stepText", stepText);
         req.setAttribute("step", step);
+        session.setAttribute("lucidity", lucidity);
+        session.setAttribute("fragments", fragments);
+
 
         if (service.isFinalStep(step)){
+
             req.getRequestDispatcher("/result.jsp").forward(req, resp);
             return;
         }
 
         req.getRequestDispatcher("/game.jsp").forward(req, resp);
+    }
+
+    private Integer safeParse(String str){
+        try {
+            return (str != null && !str.isEmpty()) ? Integer.parseInt(str) : 0;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }
