@@ -1,6 +1,8 @@
 package controller;
 
 import model.QuestStep;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import service.QuestService;
 
 import javax.servlet.ServletException;
@@ -19,6 +21,8 @@ import java.io.IOException;
 
 @WebServlet("/game")
 public class GameServlet extends HttpServlet {
+
+    private static final Logger logger = LoggerFactory.getLogger(GameServlet.class);
 
     private final QuestService service = new QuestService();
 
@@ -52,6 +56,9 @@ public class GameServlet extends HttpServlet {
             req.setAttribute("step", step);
             session.setAttribute("lucidity", lucidity);
             session.setAttribute("fragments", fragments);
+
+            logger.info("User {} goes to timelessness final. Fragments: {}, lucidity: {}", playerName, fragments, lucidity);
+
             req.getRequestDispatcher("/result.jsp").forward(req, resp);
             return;
         }
@@ -81,10 +88,12 @@ public class GameServlet extends HttpServlet {
 
 
         if (service.isFinalStep(step)){
-
+            logger.info("User {} goes to {} final. Fragments: {}, lucidity: {}", playerName, step.getId(), fragments, lucidity);
             req.getRequestDispatcher("/result.jsp").forward(req, resp);
             return;
         }
+
+        logger.debug("User {} goes to {} step. Fragments: {}, lucidity: {}", playerName, step.getId(), fragments, lucidity);
 
         req.getRequestDispatcher("/game.jsp").forward(req, resp);
     }

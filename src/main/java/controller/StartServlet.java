@@ -1,5 +1,8 @@
 package controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +14,24 @@ import java.io.IOException;
 @WebServlet("/start")
 public class StartServlet extends HttpServlet {
 
+    private static final Logger logger = LoggerFactory.getLogger(StartServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("User starts a game from doGet");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         HttpSession session = req.getSession();
 
         String playerName = req.getParameter("playerName");
         session.setAttribute("playerName", playerName);
         session.setAttribute("fragments", 0);
         session.setAttribute("lucidity", 100);
+
+        logger.info("User {} starts a game. Fragments: {}, lucidity: {}", playerName, 0, 100);
 
         req.getRequestDispatcher("game").forward(req, resp);
     }

@@ -20,7 +20,7 @@
     <title>Отель "Забвение"</title>
 </head>
 <body>
-<h1>Hello, ${sessionScope.playerName}!</h1>
+<h1>~${sessionScope.playerName}~</h1>
 
 <c:if test="${not empty step.prevText}" >
     <p class="common-text">
