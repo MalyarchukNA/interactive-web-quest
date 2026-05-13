@@ -18,7 +18,7 @@ public class StartServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("User starts a game from doGet");
+        logger.debug("User visited start page.");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
@@ -31,7 +31,7 @@ public class StartServlet extends HttpServlet {
         session.setAttribute("fragments", 0);
         session.setAttribute("lucidity", 100);
 
-        logger.info("User {} starts a game. Fragments: {}, lucidity: {}", playerName, 0, 100);
+        logger.info("User chose name '{}' and started a game session. Fragments: {}, lucidity: {}. Session id: {}", playerName, 0, 100, session.getId());
 
         req.getRequestDispatcher("game").forward(req, resp);
     }

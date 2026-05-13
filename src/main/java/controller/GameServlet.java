@@ -88,12 +88,12 @@ public class GameServlet extends HttpServlet {
 
 
         if (service.isFinalStep(step)){
-            logger.info("User {} goes to {} final. Fragments: {}, lucidity: {}", playerName, step.getId(), fragments, lucidity);
+            logger.info("User {} goes to {} final. Fragments: {}, lucidity: {}. Session id: {}", playerName, step.getId(), fragments, lucidity, session.getId());
             req.getRequestDispatcher("/result.jsp").forward(req, resp);
             return;
         }
 
-        logger.debug("User {} goes to {} step. Fragments: {}, lucidity: {}", playerName, step.getId(), fragments, lucidity);
+        logger.debug("User {} goes to {} step. Fragments: {}, lucidity: {}. Session id: {}", playerName, step.getId(), fragments, lucidity, session.getId());
 
         req.getRequestDispatcher("/game.jsp").forward(req, resp);
     }
