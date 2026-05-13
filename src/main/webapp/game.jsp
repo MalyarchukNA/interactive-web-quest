@@ -9,68 +9,64 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <style>
-        .common-text {
-            text-align: justify;
-            line-height: 1.6;
-            max-width: 600px;
-        }
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <title>Отель "Забвение"</title>
 </head>
 <body>
-<h1>~${sessionScope.playerName}~</h1>
+<div class="game-container">
+    <h1>Отель "Забвение"</h1>
+    <c:if test="${not empty step.prevText}" >
+        <p class="common-text">
+                ${step.prevText}<br>
+        </p>
+    </c:if>
 
-<c:if test="${not empty step.prevText}" >
     <p class="common-text">
-        ${step.prevText}<br><br>
+        ${stepText}
     </p>
-</c:if>
 
-<p class="common-text">
-    ${stepText}
-</p>
+    <form action="game" method="post" class="choice-form">
 
+        <input type="hidden" id="nextStepText" name="nextStepText" value="">
+        <input type="hidden" id="fragmentDiff" name="fragmentDiff" value="0">
+        <input type="hidden" id="lucidityDiff" name="lucidityDiff" value="0">
 
-<form action="game" method="post">
-    <p> Ваш вариант: </p>
+        <div class="choice-row">
+            <input type="radio" id="choice1" name="step" value="${step.nextStep1id}"
+                   data-text = "${step.nextStepText1id}"
+                   data-fragment = "${step.fragment1id}"
+                   data-lucidity = "${step.lucidity1id}" onclick="updateText(this)" required>
+            <label for="choice1">${step.option1}</label><br>
+        </div>
 
-    <input type="hidden" id="nextStepText" name="nextStepText" value="">
-    <input type="hidden" id="fragmentDiff" name="fragmentDiff" value="0">
-    <input type="hidden" id="lucidityDiff" name="lucidityDiff" value="0">
+        <div class="choice-row">
+            <input type="radio" id="choice2" name="step" value="${step.nextStep2id}"
+                   data-text = "${step.nextStepText2id}"
+                   data-fragment = "${step.fragment2id}"
+                   data-lucidity = "${step.lucidity2id}" onclick="updateText(this)" required>
+            <label for="choice2">${step.option2}</label><br><br>
+        </div>
 
-    <input type="radio" id="choice1" name="step" value="${step.nextStep1id}"
-            data-text = "${step.nextStepText1id}"
-            data-fragment = "${step.fragment1id}"
-            data-lucidity = "${step.lucidity1id}" onclick="updateText(this)" required>
-    <label for="choice1">${step.option1}</label><br>
+        <button type ="submit" class="submit-btn">Подтвердить выбор</button>
 
-    <input type="radio" id="choice2" name="step" value="${step.nextStep2id}"
-           data-text = "${step.nextStepText2id}"
-           data-fragment = "${step.fragment2id}"
-           data-lucidity = "${step.lucidity2id}" onclick="updateText(this)" required>
-    <label for="choice2">${step.option2}</label><br><br>
+    </form>
 
-    <button type ="submit">Подтвердить выбор</button>
-
-</form>
-
-<script>
-    function updateText(radio) {
-        document.getElementById('nextStepText').value = radio.getAttribute('data-text');
-        document.getElementById('fragmentDiff').value = radio.getAttribute('data-fragment');
-        document.getElementById('lucidityDiff').value = radio.getAttribute('data-lucidity');
-    }
-</script>
-
-<div>
-    <p>ID сессии: ${pageContext.session.id}</p>
-    <p>Текущий шаг: ${step.id}</p>
-    <p>Осколки памяти: ${sessionScope.fragments}</p>
-    <p>Разум: ${sessionScope.lucidity}</p>
+    <script>
+        function updateText(radio) {
+            document.getElementById('nextStepText').value = radio.getAttribute('data-text');
+            document.getElementById('fragmentDiff').value = radio.getAttribute('data-fragment');
+            document.getElementById('lucidityDiff').value = radio.getAttribute('data-lucidity');
+        }
+    </script>
 </div>
 
+<div class="hud-panel">
+    <div class="hud-metric">Имя игрока: ${sessionScope.playerName}</div>
+    <div class="hud-metric">Осколки памяти: <span>${sessionScope.fragments}</span></div>
+    <div class="hud-metric ${sessionScope.lucidity < 50 ? 'danger' : ''}" >Разум: <span>${sessionScope.lucidity}</span></div>
+    <div class="hud-metric">Текущий шаг: ${step.id}</div>
+    <div class="hud-metric">ID сессии: ${pageContext.session.id}</div>
+</div>
 
 </body>
 </html>

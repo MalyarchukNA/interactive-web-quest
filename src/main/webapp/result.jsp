@@ -9,36 +9,34 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <style>
-        .common-text {
-            text-align: justify;
-            line-height: 1.6;
-            max-width: 600px;
-        }
-    </style>
-    <title>RESULT</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+    <title>Отель "Забвение"</title>
 </head>
 <body>
-<c:if test="${not empty step.prevText}" >
-    <p class="common-text">
-            ${step.prevText}<br><br>
+<div class="game-container">
+    <h1>Отель "Забвение"</h1>
+    <c:if test="${not empty step.prevText}" >
+        <p class="common-text">
+                ${step.prevText}<br>
+        </p>
+    </c:if>
+
+    <p class = "common-text" >
+        ${stepText}<br>
     </p>
-</c:if>
 
-<p class = "common-text" >
-    ${stepText}<br>
-</p>
-
-<form action="restart" method="post">
-    <button type="submit">Начать новую игру</button>
-</form>
+    <form action="restart" method="post" class="choice-form">
+        <button type="submit" class="submit-btn">Начать новую игру</button>
+    </form>
+</div>
 
 
-<div>
-    <p>ID сессии: ${pageContext.session.id}</p>
-    <p>Текущий шаг: ${step.id}</p>
-    <p>Осколки памяти: ${sessionScope.fragments}</p>
-    <p>Разум: ${sessionScope.lucidity}</p>
+<div class="hud-panel">
+    <div class="hud-metric">Имя игрока: ${sessionScope.playerName}</div>
+    <div class="hud-metric">Осколки памяти: <span>${sessionScope.fragments}</span></div>
+    <div class="hud-metric ${sessionScope.lucidity < 50 ? 'danger' : ''}" >Разум: <span>${sessionScope.lucidity}</span></div>
+    <div class="hud-metric">Текущий шаг: ${step.id}</div>
+    <div class="hud-metric">ID сессии: ${pageContext.session.id}</div>
 </div>
 
 </body>
