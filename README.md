@@ -7,14 +7,21 @@ Web-based text quest built with Java Servlets, JSP and Maven.
 ```text
 1. Java 21
 2. Maven 
-3. Servlet API 4.0
+3. Servlet API 4.0, JSTL 1.2, JSP, HTML4, CSS3
+4. Project Lombok
+5. JUnit 5 (Jupiter API & Params)
+6. SLF4J + Logback Classic 1.5
 ```
 
 ## *2. Функционал*
 
-```text
-Приложение веб-квест, которое принимает решения пользователя, хранит состояния игры, показывает результат.
-```
+Приложение представляет собой интерактивный веб-квест, построенный с использованием сервлетов и JSP-страниц.
+Принимает решения пользователя, хранит состояния игры, показывает результат в зависимости от выборов игрока.
+
+### Структура и ветвление квеста
+<details>
+<summary style="display: list-item; padding: 10px 15px; background-color: #3d3d3d; border: 1px solid #30363d; border-radius: 6px; font-weight: bold; cursor: pointer; user-select: none; margin-bottom: 10px;"> Смотреть карту квеста (Осторожно, спойлеры!)</summary>
+
 ```mermaid
 graph TD
     %% --- Начало ---
@@ -68,11 +75,57 @@ graph TD
     style Timelessness fill:#f99,stroke:#333
     style Defeat fill:#f99,stroke:#333
 ```
-
+</details>
 
 ## *3. Инструкция по запуску*
 
+Для запуска проекта потребуется:
 ```text
-Требует Java 21 и Maven 3.9
+1. Java 21 или выше
+2. Apache Maven 3.9+
+3. Apache Tomcat 9.x
+```
+### 3.1. Клонирование и сборка артефакта
+Склонируйте репозиторий и соберите `.war` файл:
+
+```bash
+git clone git@github.com:MalyarchukNA/interactive-web-quest.git
+cd interactive-web-quest
+mvn clean package
 ```
 
+### 3.2. Локальный запуск на Apache Tomcat
+
+#### Вариант А. Ручной деплой
+1. Скопируйте полученный файл `interactive-web-quest-1.0-SNAPSHOT.war`.
+2. Перенесите его в директорию `webapps` вашего установленного сервера Tomcat.
+3. Запустите Tomcat.
+
+#### Вариант Б. Запуск через IntelliJ IDEA
+1. Откройте проект в IntelliJ IDEA.
+2. Выберите: **Run** -> **Edit Configurations...**
+3. Нажмите на **`+`** (Add New Configuration) и выберите **Tomcat Server** -> **Local**.
+4. Во вкладке **Server** укажите путь к вашему локальному Tomcat (поле *Application server*).
+5. Перейдите во вкладку **Deployment**, нажмите **`+`**, выберите **Artifact...** и укажите `interactive-web-quest:war exploded`.
+6. В поле **Application context** укажите имя пути, например: `/quest`.
+7. Нажмите **Apply** и запустите сервер кнопкой **Run (Shift + F10)**.
+
+### 3.3. Доступ к приложению в браузере
+
+После успешного деплоя откройте браузер и перейдите по адресу:
+* Если запускали через **Вариант А**:
+  `http://localhost:8080/interactive-web-quest-1.0-SNAPSHOT/`
+* Если запускали через **Вариант Б**:
+  `http://localhost:8080/quest/`
+
+## 4. Тестирование и логирование
+
+### Запуск тестов
+Для валидации логики инициализации шагов и проверки `QuestService` запустите JUnit тесты командой:
+```bash
+mvn test
+```
+
+### Как посмотреть логи при ручном запуске:
+1. Откройте консоль вашего сервера Tomcat — там отобразятся `INFO` сообщения.
+2. Перейдите в рабочую папку Tomcat (или корень вашего проекта в зависимости от способа запуска) и откройте сгенерированный файл `./logs/debug.log` - там записываются `DEBUG` сообщения.
